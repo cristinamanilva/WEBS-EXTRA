@@ -1,0 +1,1081 @@
+@charset "UTF-8";
+
+/* =========================================
+   GENERAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+}
+
+main {
+    min-height: 100vh;
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    font-size: 42px;
+}
+
+.subtitulo {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+
+/* =========================================
+   CARRUSEL DE ANIMALES
+========================================= */
+
+.carrusel {
+    width: 100%;
+    height: 460px;
+    position: relative;
+    overflow: visible;
+}
+
+.carrusel-contenido {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    overflow: visible;
+}
+
+
+/* =========================================
+   CARTAS DE ANIMALES
+========================================= */
+
+.carta {
+    position: absolute;
+    width: 280px;
+    height: 400px;
+    top: 0;
+    perspective: 1000px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    z-index: 1;
+    transition:
+        left 0.8s ease,
+        top 0.8s ease,
+        transform 0.8s ease;
+    will-change: left, top, transform;
+}
+
+.carta.seleccionada {
+    z-index: 10000 !important;
+}
+
+.carta.zoom {
+    transform: scale(1.25);
+    z-index: 10000 !important;
+}
+
+.carta.animando {
+    pointer-events: none;
+}
+
+.carta-interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+.carta.girada .carta-interior {
+    transform: rotateY(180deg);
+}
+
+.cara {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.cara-delante {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 25px;
+}
+
+.cara-delante img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.cara-delante h2 {
+    margin: 0;
+    font-size: 25px;
+    text-align: center;
+}
+
+.cara-detras {
+    transform: rotateY(180deg);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.cara-detras h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.cara-detras ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.cara-detras li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+
+/* =========================================
+   COLORES DE LOS ANIMALES
+========================================= */
+
+.pato { --color-animal: #6a0dad; }
+.ardilla { --color-animal: #d98b4a; }
+.lobo { --color-animal: #718096; }
+.panda { --color-animal: #9ae6b4; }
+.aguila { --color-animal: #d6a84f; }
+.castor { --color-animal: #a56b46; }
+.boqueron { --color-animal: #4fa3c7; }
+.pantera { --color-animal: #7b61a8; }
+.anaconda { --color-animal: #5c8d5a; }
+.camaleon { --color-animal: #f5f5f0; }
+.gato { --color-animal: #f4a6c1; }
+.cebra { --color-animal: #d62828; }
+.lince { --color-animal: #b79ad8; }
+
+.carta .cara-detras {
+    background-color: var(--color-animal);
+}
+
+
+/* =========================================
+   TEXTO BLANCO EN CARAS OSCURAS (ANIMALES)
+   Fondos oscuros -> texto blanco para que se lea bien
+========================================= */
+
+.pato .cara-detras,
+.lobo .cara-detras,
+.castor .cara-detras,
+.pantera .cara-detras,
+.anaconda .cara-detras,
+.cebra .cara-detras {
+    color: #fff;
+}
+
+
+/* =========================================
+   FONDO AL ABRIR UNA CARTA
+========================================= */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 500;
+    background-color: transparent;
+    transition: background-color 0.6s ease;
+}
+
+body.carta-abierta::after {
+    background-color: color-mix(in srgb, var(--color-seleccionado), transparent 97%);
+}
+
+
+/* =========================================
+   DESCRIPCIÓN DEL ANIMAL
+   Sin caja por defecto (solo botón, sin recortes).
+   Con .visible aparece la caja completa.
+========================================= */
+
+.descripcion-animal {
+    position: relative;
+    z-index: 600;
+
+    width: 85%;
+    max-width: 750px;
+
+    margin: 30px auto 40px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    /* Sin overflow:hidden aquí: así la sombra/animación del botón
+       no se recorta cuando el cuadro no tiene padding */
+
+    transition:
+        padding 0.4s ease,
+        background-color 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.descripcion-animal.visible {
+    padding: 28px 40px;
+
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--color-seleccionado, #8e44ad);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--color-seleccionado, #8e44ad), transparent 45%);
+
+    /* Ahora sí recortamos, para que el texto respete el borde redondeado */
+    overflow: hidden;
+}
+
+/* Botón dentro del cuadro: visible por defecto, se esconde con .visible */
+.btn-test-desc {
+    display: inline-flex;
+    margin: 0 auto;
+    box-shadow: 0 10px 26px rgba(142, 68, 173, 0.45);
+}
+
+.btn-test-desc:hover {
+    box-shadow: 0 16px 34px rgba(255, 95, 109, 0.55);
+}
+
+.descripcion-animal.visible .btn-test-desc,
+.descripcion-color.visible .btn-test-desc {
+    display: none;
+}
+
+/* Texto: oculto por defecto, aparece con .visible */
+.descripcion-animal-texto {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(40px);
+    overflow: hidden;
+    transition: opacity 0.7s ease, transform 0.7s ease, max-height 0.7s ease;
+}
+
+.descripcion-animal.visible .descripcion-animal-texto {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+}
+
+.descripcion-animal h3 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+}
+
+.descripcion-animal p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+}
+
+
+/* =========================================
+   CARRUSEL DE COLORES
+========================================= */
+
+.carrusel-colores {
+    width: 100%;
+    height: 650px;
+    position: relative;
+    margin-top: 120px;
+    overflow: visible;
+}
+
+.titulo-colores {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 10px;
+}
+
+.subtitulo-colores {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.carrusel-colores-contenido {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    overflow: visible;
+}
+
+.carta-color {
+    position: absolute;
+    width: 280px;
+    height: 400px;
+    top: 0;
+    perspective: 1000px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    z-index: 1;
+    transition:
+        left 0.8s ease,
+        top 0.8s ease,
+        transform 0.8s ease;
+    will-change: left, top, transform;
+}
+
+.carta-color.seleccionada {
+    z-index: 10000 !important;
+}
+
+.carta-color-interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+.carta-color.girada .carta-color-interior {
+    transform: rotateY(180deg);
+}
+
+.cara-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background-color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.cara-color-delante {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 25px;
+}
+
+.muestra-color {
+    width: 100%;
+    height: 350px;
+}
+
+.cara-color-delante h2 {
+    margin: 0;
+    font-size: 25px;
+    text-align: center;
+}
+
+.cara-color-detras {
+    transform: rotateY(180deg);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.cara-color-detras h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.cara-color-detras ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.cara-color-detras li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+
+/* =========================================
+   COLORES
+========================================= */
+
+.rojo { --color-color: #e53935; }
+.azul { --color-color: #3498db; }
+.verde { --color-color: #4caf50; }
+.amarillo { --color-color: #f1c40f; }
+.naranja { --color-color: #f39c12; }
+.morado { --color-color: #8e44ad; }
+.rosa { --color-color: #f4a6c1; }
+.blanco { --color-color: #f5f5f5; }
+.negro { --color-color: #222222; }
+.burdeos {--color-color: #800020;}
+.azul-marino {--color-color: #0B1F3A;}
+.turquesa {--color-color: #20B2AA;}
+.terracota {--color-color: #C96F4A;}
+
+.carta-color .muestra-color {
+    background-color: var(--color-color);
+}
+
+.carta-color .cara-color-detras {
+    background-color: var(--color-color);
+}
+
+
+/* =========================================
+   TEXTO BLANCO EN CARAS OSCURAS (COLORES)
+   Fondos oscuros -> texto blanco para que se lea bien
+========================================= */
+
+.rojo .cara-color-detras,
+.morado .cara-color-detras,
+.negro .cara-color-detras,
+.burdeos .cara-color-detras,
+.azul-marino .cara-color-detras {
+    color: #fff;
+}
+
+
+/* =========================================
+   DESCRIPCIÓN DEL COLOR
+   Sin caja por defecto (solo botón, sin recortes).
+   Con .visible aparece la caja completa.
+========================================= */
+
+.descripcion-color {
+    position: relative;
+    z-index: 600;
+
+    width: 85%;
+    max-width: 750px;
+
+    margin: 30px auto 40px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    transform: translateY(440px);
+
+    transition:
+        padding 0.4s ease,
+        background-color 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.descripcion-color.visible {
+    padding: 28px 40px;
+
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--color-color-seleccionado, #8e44ad);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    overflow: hidden;
+}
+
+.descripcion-color-texto {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(40px);
+    overflow: hidden;
+    transition: opacity 0.7s ease, transform 0.7s ease, max-height 0.7s ease;
+}
+
+.descripcion-color.visible .descripcion-color-texto {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+}
+
+.descripcion-color h3 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+}
+
+.descripcion-color p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+}
+
+
+/* =========================================
+   CABECERA: GRID 3 COLUMNAS
+   (col 1 vacía) — (col 2: h1+p centrado) — (col 3: botón a la derecha)
+========================================= */
+
+.cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+    margin-bottom: 14px;
+}
+
+.cabecera-texto {
+    grid-column: 2;
+    text-align: center;
+}
+
+.cabecera-texto h1 {
+    margin: 0;
+}
+
+.cabecera-texto .subtitulo {
+    margin: 10px 0 0;
+}
+
+.btn-test-cabecera {
+    grid-column: 3;
+    justify-self: end;
+    margin-right: 120px;
+}
+
+@media (max-width: 640px) {
+
+    .cabecera {
+        grid-template-columns: 1fr;
+    }
+
+    .cabecera-texto {
+        grid-column: 1;
+    }
+
+    .btn-test-cabecera {
+        grid-column: 1;
+        justify-self: center;
+        margin-top: 16px;
+    }
+
+}
+
+
+/* =========================================
+   BOTÓN LLAMATIVO
+========================================= */
+
+.btn-test {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px 30px;
+
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    overflow: hidden;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+
+    background: linear-gradient(120deg, #ff5f6d, #ff9a44, #8e44ad, #3498db, #ff5f6d);
+    background-size: 300% 300%;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.9),
+        0 10px 26px rgba(142, 68, 173, 0.45);
+
+    animation:
+        btnGradiente 6s linear infinite,
+        btnLatido 2.4s ease-in-out infinite;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-test::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+    transform: skewX(-20deg);
+    animation: btnDestello 3.2s ease-in-out infinite;
+}
+
+.btn-test .huella {
+    display: inline-block;
+    font-size: 22px;
+    animation: huellaBote 1.6s ease-in-out infinite;
+}
+
+.btn-test:hover {
+    transform: translateY(-4px) scale(1.07) rotate(-1.5deg);
+    box-shadow: 0 0 0 3px #fff, 0 16px 34px rgba(255, 95, 109, 0.55);
+}
+
+.btn-test:active {
+    transform: scale(0.96);
+}
+
+.btn-test:focus-visible {
+    outline: 3px solid #222;
+    outline-offset: 4px;
+}
+
+@keyframes btnGradiente {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+@keyframes btnLatido {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.05); }
+}
+
+@keyframes btnDestello {
+    0%, 55% { left: -80%; }
+    100%    { left: 140%; }
+}
+
+@keyframes huellaBote {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-4px) rotate(-12deg); }
+}
+
+
+/* =========================================
+   MODAL DEL TEST
+========================================= */
+
+body.test-abierto {
+    overflow: hidden;
+}
+
+.test-fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(20, 15, 35, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.test-fondo.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.test-panel {
+    --color-test: #8e44ad;
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 34px 34px 30px;
+    background: #fff;
+    border-radius: 24px;
+    border-top: 8px solid var(--color-test);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    transform: translateY(40px) scale(0.96);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.test-fondo.visible .test-panel {
+    transform: translateY(0) scale(1);
+}
+
+.test-cerrar {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.test-cerrar:hover {
+    background: #e0e0e0;
+    transform: rotate(90deg);
+}
+
+.test-progreso-texto {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.test-progreso {
+    height: 8px;
+    margin-bottom: 26px;
+    border-radius: 99px;
+    background: #ececec;
+    overflow: hidden;
+}
+
+.test-progreso-barra {
+    height: 100%;
+    width: 0;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #ff5f6d, #ff9a44, #8e44ad);
+    transition: width 0.4s ease;
+}
+
+.test-pregunta {
+    margin: 0 0 20px;
+    padding-right: 30px;
+    font-size: 24px;
+    line-height: 1.25;
+    color: #222;
+}
+
+.test-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.test-opcion {
+    width: 100%;
+    padding: 14px 18px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.35;
+    color: #222;
+    background: #fafafa;
+    border: 2px solid #e4e4e4;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.test-opcion:hover {
+    transform: translateX(6px);
+    border-color: #8e44ad;
+    background: #f6eefa;
+}
+
+.test-opcion:focus-visible {
+    outline: 3px solid #8e44ad;
+    outline-offset: 2px;
+}
+
+.test-opcion.elegida {
+    border-color: #8e44ad;
+    background: #8e44ad;
+    color: #fff;
+}
+
+.test-opciones.bloqueado {
+    pointer-events: none;
+}
+
+.test-atras {
+    margin-top: 18px;
+    padding: 6px 2px;
+    border: none;
+    background: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.test-atras[hidden] {
+    display: none;
+}
+
+
+/* =========================================
+   RESULTADO
+========================================= */
+
+.test-resultado {
+    text-align: center;
+    animation: resultadoEntra 0.6s ease both;
+}
+
+@keyframes resultadoEntra {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.test-resultado .test-eres {
+    margin: 0 0 6px;
+    font-size: 16px;
+    color: #666;
+}
+
+.test-resultado h3 {
+    margin: 0 0 18px;
+    font-size: 36px;
+    color: var(--color-test);
+    -webkit-text-stroke: 0.6px rgba(0, 0, 0, 0.35);
+}
+
+.test-resultado img {
+    width: 210px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 5px solid var(--color-test);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+
+.test-resultado .test-texto {
+    margin: 20px auto 22px;
+    max-width: 460px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.test-afinidad {
+    max-width: 420px;
+    margin: 0 auto 24px;
+    text-align: left;
+}
+
+.test-afinidad p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+.afinidad-fila {
+    display: grid;
+    grid-template-columns: 100px 1fr 42px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.afinidad-pista {
+    height: 10px;
+    border-radius: 99px;
+    background: #ececec;
+    overflow: hidden;
+}
+
+.afinidad-relleno {
+    height: 100%;
+    width: 0;
+    border-radius: 99px;
+    background: var(--color-fila);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    transition: width 0.9s ease;
+}
+
+.afinidad-porcentaje {
+    text-align: right;
+    font-weight: bold;
+}
+
+.test-acciones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.test-btn {
+    padding: 12px 24px;
+    border: 2px solid #8e44ad;
+    border-radius: 999px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.test-btn:hover {
+    transform: translateY(-2px);
+}
+
+.test-btn-principal {
+    background: #8e44ad;
+    color: #fff;
+}
+
+.test-btn-secundario {
+    background: #fff;
+    color: #8e44ad;
+}
+
+
+/* =========================================
+   RESPONSIVE Y MOVIMIENTO REDUCIDO
+========================================= */
+
+@media (max-width: 520px) {
+    .test-panel {
+        padding: 28px 20px 24px;
+    }
+    .test-pregunta {
+        font-size: 20px;
+    }
+    .afinidad-fila {
+        grid-template-columns: 82px 1fr 40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-test,
+    .btn-test::before,
+    .btn-test .huella,
+    .test-resultado {
+        animation: none;
+    }
+    .test-panel,
+    .test-fondo,
+    .afinidad-relleno,
+    .test-progreso-barra {
+        transition: none;
+    }
+}
+
+
+/* =========================================
+   TEST: COLOR DEL RESULTADO
+========================================= */
+
+.test-color {
+    --color-resultado: #8e44ad;
+    max-width: 460px;
+    margin: 0 auto 24px;
+    padding: 18px 20px 16px;
+    border: 2px solid var(--color-resultado);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--color-resultado), white 88%);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.test-color .test-eres {
+    margin: 0 0 12px;
+}
+
+.test-color-fila {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+}
+
+.test-color-muestra {
+    flex: 0 0 76px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background: var(--color-resultado);
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.18),
+        0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.test-color-info h4 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    color: #222;
+}
+
+.test-color-texto {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.test-color-rasgos {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+}
+
+.test-color-rasgos li {
+    padding: 5px 12px;
+    border: 1.5px solid var(--color-resultado);
+    border-radius: 99px;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    font-size: 13px;
+    color: #333;
+}
+
+@media (max-width: 520px) {
+    .test-color-fila {
+        flex-direction: column;
+        text-align: center;
+    }
+}

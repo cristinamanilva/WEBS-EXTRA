@@ -1,0 +1,319 @@
+@property --foco {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #2b2b33;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    --foco: #2b2b33;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: "Avenir Next", "Nunito", "Segoe UI", system-ui, sans-serif;
+    color: #f4f4f6;
+    background:
+        radial-gradient(ellipse 70% 55% at 50% 38%, color-mix(in srgb, var(--foco) 55%, transparent), transparent 70%),
+        #17171c;
+    transition: --foco 0.9s ease;
+}
+
+main {
+    padding: 48px 0 32px;
+    text-align: center;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.subtitulo {
+    margin: 10px auto 34px;
+    padding: 0 20px;
+    max-width: 52ch;
+    color: #c9c9d1;
+}
+
+/* CARRUSEL */
+
+.carrusel {
+    overflow: hidden;
+    padding: 34px 0 44px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.pista {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.carta-color {
+    position: relative;
+    flex: 0 0 auto;
+    width: 230px;
+    height: 310px;
+    margin-right: 28px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: left;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: linear-gradient(155deg,
+            color-mix(in srgb, var(--c) 82%, #fff) 0%,
+            var(--c) 45%,
+            color-mix(in srgb, var(--c) 78%, #000) 100%);
+    color: var(--t);
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+}
+
+/* brillo que cruza la carta que está en el centro */
+.carta-color::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -60%;
+    width: 40%;
+    height: 140%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-18deg);
+    opacity: 0;
+}
+
+.carta-color.foco {
+    transform: translateY(-14px) scale(1.09);
+    box-shadow:
+        0 0 0 3px rgba(255, 255, 255, 0.85),
+        0 28px 60px color-mix(in srgb, var(--c) 65%, transparent);
+}
+
+.carta-color.foco::after {
+    animation: brillo 1.6s ease-out 0.15s 1;
+}
+
+@keyframes brillo {
+    0% {
+        left: -60%;
+        opacity: 1;
+    }
+
+    100% {
+        left: 130%;
+        opacity: 1;
+    }
+}
+
+.carta-color h3 {
+    font-size: 1.7rem;
+    line-height: 1.1;
+}
+
+.carta-color .hex {
+    margin-top: 6px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    opacity: 0.85;
+}
+
+.carta-color .persona {
+    margin-top: 2px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* CONTROLES */
+
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.controles button {
+    padding: 10px 20px;
+    font: inherit;
+    font-weight: 600;
+    color: #f4f4f6;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.controles button:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+button:focus-visible,
+.carta-color:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+/* PANEL DEL COLOR EN EL CENTRO */
+
+.panel {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin: 0 auto;
+    padding: 24px 28px;
+    width: min(760px, calc(100% - 40px));
+    text-align: left;
+    background: rgba(20, 20, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 24px;
+    backdrop-filter: blur(8px);
+}
+
+.panel-muestra {
+    flex: 0 0 auto;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--foco);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--foco) 70%, transparent);
+    transition: background 0.9s ease;
+}
+
+.panel-texto h2 {
+    font-size: 1.6rem;
+}
+
+.panel-persona {
+    color: #c9c9d1;
+}
+
+.panel-codigos {
+    margin-top: 4px;
+    font-weight: 700;
+}
+
+.panel-rasgos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+    list-style: none;
+}
+
+.panel-rasgos li {
+    padding: 4px 12px;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.panel-significado {
+    max-width: 60ch;
+    line-height: 1.5;
+    color: #e4e4ea;
+}
+
+.panel-texto {
+    transition: opacity 0.25s ease;
+}
+
+.panel-texto.cambiando {
+    opacity: 0;
+}
+
+/* FRANJA DE CÓDIGOS EN SENTIDO CONTRARIO */
+
+.paleta {
+    margin-top: 40px;
+    overflow: hidden;
+}
+
+.paleta-pista {
+    display: flex;
+    width: max-content;
+    animation: paleta 45s linear infinite;
+}
+
+@keyframes paleta {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 22px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #c9c9d1;
+    white-space: nowrap;
+}
+
+.chip i {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--c);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* AVISO AL COPIAR */
+
+.aviso {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #17171c;
+    background: #f4f4f6;
+    border-radius: 999px;
+    transform: translate(-50%, 90px);
+    transition: transform 0.35s ease;
+}
+
+.aviso.visible {
+    transform: translate(-50%, 0);
+}
+
+@media (max-width: 600px) {
+    .panel {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .panel-rasgos {
+        justify-content: center;
+    }
+
+    .carta-color {
+        width: 200px;
+        height: 280px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .paleta-pista,
+    .carta-color.foco::after {
+        animation: none;
+    }
+}

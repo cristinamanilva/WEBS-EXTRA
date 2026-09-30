@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué animal soy?</title>
+    <link rel="stylesheet" href="estilo/estilo.css">
+</head>
+
+<body>
+
+    <main>
+
+        <!-- CABECERA: TÍTULO + SUBTÍTULO (CENTRO) Y BOTÓN (DERECHA) -->
+        <div class="cabecera">
+
+            <div class="cabecera-texto">
+                <h1>¿QUÉ ANIMAL ERES?</h1>
+
+                <p class="subtitulo">
+                    Descubre qué animal representa mejor tu forma de ser
+                </p>
+            </div>
+
+            <button type="button" class="btn-test btn-test-cabecera btn-abrir-test" id="abrirTest">
+                <span class="huella">🐾</span>
+                <span>¡Haz el test!</span>
+            </button>
+
+        </div>
+
+
+        <section class="carrusel">
+
+            <div class="carrusel-contenido">
+
+                <!-- PATO -->
+                <div class="carta pato">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/pato.jpg" alt="Pato">
+                            <h2>Pato</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Pato</h2>
+                            <ul>
+                                <li>Curiosa</li>
+                                <li>Perseverante</li>
+                                <li>Adaptable</li>
+                                <li>Independiente</li>
+                                <li>Ambiciosa</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ARDILLA -->
+                <div class="carta ardilla">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/ardilla-voladora.jpg" alt="Ardilla voladora">
+                            <h2>Ardilla voladora</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Ardilla voladora</h2>
+                            <ul>
+                                <li>Adaptable </li>
+                                <li>Polivalente </li>
+                                <li>Libre</li>
+                                <li>Independiente </li>
+                                <li>Curiosa </li>
+                                <li>Observadora </li>
+                                <li>Valiente </li>
+                                <li>Resiliente </li>
+                                <li>Cercana </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOBO -->
+                <div class="carta lobo">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/lobo.jpg" alt="Lobo">
+                            <h2>Lobo</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Lobo</h2>
+                            <ul>
+                                <li>Fiel</li>
+                                <li>Leal </li>
+                                <li>Colaborativo </li>
+                                <li>Independiente </li>
+                                <li>Respetuoso </li>
+                                <li>Reservado </li>
+                                <li>Firme </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANDA -->
+                <div class="carta panda">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/panda.jpg" alt="Panda">
+                            <h2>Panda</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Panda</h2>
+                            <ul>
+                                <li>Tranquilo </li>
+                                <li>Pacífico </li>
+                                <li>Torpe </li>
+                                <li>Relajado </li>
+                                <li>Sereno </li>
+                                <li>Confiado </li>
+                                <li>Honesto</li>
+                                <li>Estable </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGUILA -->
+                <div class="carta aguila">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/aguila.jpg" alt="Águila">
+                            <h2>Águila</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Águila</h2>
+                            <ul>
+                                <li>Libertad </li>
+                                <li>Determinación </li>
+                                <li>Visión </li>
+                                <li>Fortaleza </li>
+                                <li>Ambición </li>
+                                <li>Independencia </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASTOR -->
+                <div class="carta castor">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/castor.jpg" alt="Castor">
+                            <h2>Castor</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Castor</h2>
+                            <ul>
+                                <li>Trabajador </li>
+                                <li>Constante </li>
+                                <li>Paciente </li>
+                                <li>Metódico </li>
+                                <li>Independiente</li>
+                                <li>Sociable </li>
+                                <li>Colaborador </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOQUERON -->
+                <div class="carta boqueron">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/boqueron.jpg" alt="Boquerón">
+                            <h2>Boquerón</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Boquerón</h2>
+                            <ul>
+                                <li>Independiente </li>
+                                <li>Trabajador</li>
+                                <li>Paciente </li>
+                                <li>Adaptable </li>
+                                <li>Tranquilo </li>
+                                <li>Diferente </li>
+                                <li>Buen compañero </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTERA -->
+                <div class="carta pantera">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/pantera-negra.jpg" alt="Pantera negra">
+                            <h2>Pantera negra</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Pantera negra</h2>
+                            <ul>
+                                <li>Reservado</li>
+                                <li>Independiente</li>
+                                <li>Selectivo</li>
+                                <li>Leal </li>
+                                <li>Ambicioso </li>
+                                <li>Observador </li>
+                                <li>Divertido </li>
+                                <li>Protector </li>
+                                <li>Autosuficiente </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANACONDA -->
+                <div class="carta anaconda">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/anaconda-ciega.jpg" alt="Anaconda ciega">
+                            <h2>Anaconda ciega</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Anaconda ciega</h2>
+                            <ul>
+                                <li>Adaptable</li>
+                                <li>Observadora</li>
+                                <li>Discreta</li>
+                                <li>Eficiente </li>
+                                <li>Práctica </li>
+                                <li>Versátil </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAMALEÓN BLANCO -->
+                <div class="carta camaleon">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/camaleon.jpg" alt="Camaleón Blanco">
+                            <h2>Camaleón Blanco</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Camaleón Blanco</h2>
+                            <ul>
+                                <li>Adaptable </li>
+                                <li>Observador </li>
+                                <li>Empático </li>
+                                <li>Versátil</li>
+                                <li>Trabajo en equipo</li>
+                                <li>Reservado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GATO ROSA -->
+                <div class="carta gato">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/gato.jpg" alt="Gato">
+                            <h2>Gato Rosa</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Gato Rosa</h2>
+                            <ul>
+                                <li>Curioso</li>
+                                <li>Activo</li>
+                                <li>Iniciativo</li>
+                                <li>Independiente</li>
+                                <li> Dominante </li>
+                                <li> Espontáneo </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CEBRA -->
+                <div class="carta cebra">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/cebra.jpg" alt="Cebra">
+                            <h2>Cebra</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Cebra</h2>
+                            <ul>
+                                <li>Individual</li>
+                                <li>Colaborativa</li>
+                                <li>Compañera</li>
+                                <li>Auténtica </li>
+                                <li>Respetuosa </li>
+                                <li>Unida </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LINCE -->
+                <div class="carta lince">
+                    <div class="carta-interior">
+                        <div class="cara cara-delante">
+                            <img src="img/lince.jpg" alt="Lince">
+                            <h2>Lince</h2>
+                        </div>
+                        <div class="cara cara-detras">
+                            <h2>Lince</h2>
+                            <ul>
+                                <li>Observador</li>
+                                <li>Cauteloso</li>
+                                <li>Perfeccionista </li>
+                                <li>Reservado</li>
+                                <li>Intuitivo</li>
+                                <li>Independiente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMACIÓN DEL ANIMAL SELECCIONADO -->
+
+        <div class="descripcion-animal">
+
+            <button type="button" class="btn-test btn-test-desc btn-abrir-test" id="abrirTestAnimal">
+                <span class="huella">🐾</span>
+                <span>¡Haz el test!</span>
+            </button>
+
+            <div class="descripcion-animal-texto">
+                <h3></h3>
+                <p></p>
+            </div>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- CARRUSEL DE COLORES -->
+        <!-- ============================= -->
+
+        <section class="carrusel carrusel-colores">
+
+            <h2 class="titulo-colores">¿QUÉ COLOR SOY?</h2>
+
+            <p class="subtitulo-colores">
+                Descubre qué color representa mejor tu forma de ser
+            </p>
+
+            <div class="carrusel-colores-contenido">
+
+                <!-- ROJO -->
+                <div class="carta-color rojo">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Rojo</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Rojo</h2>
+                            <ul>
+                                <li>Energía</li>
+                                <li>Pasión</li>
+                                <li>Determinación</li>
+                                <li>Fuerza</li>
+                                <li>Confianza</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AZUL -->
+                <div class="carta-color azul">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Azul</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Azul</h2>
+                            <ul>
+                                <li>Tranquilidad</li>
+                                <li>Serenidad</li>
+                                <li>Confianza</li>
+                                <li>Estabilidad</li>
+                                <li>Reflexión</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VERDE -->
+                <div class="carta-color verde">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Verde</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Verde</h2>
+                            <ul>
+                                <li>Equilibrio</li>
+                                <li>Adaptabilidad</li>
+                                <li>Armonía</li>
+                                <li>Crecimiento</li>
+                                <li>Naturalidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AMARILLO -->
+                <div class="carta-color amarillo">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Amarillo</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Amarillo</h2>
+                            <ul>
+                                <li>Alegría</li>
+                                <li>Optimismo</li>
+                                <li>Creatividad</li>
+                                <li>Curiosidad</li>
+                                <li>Espontaneidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NARANJA -->
+                <div class="carta-color naranja">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Naranja</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Naranja</h2>
+                            <ul>
+                                <li>Sociabilidad</li>
+                                <li>Entusiasmo</li>
+                                <li>Creatividad</li>
+                                <li>Vitalidad</li>
+                                <li>Espontaneidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MORADO -->
+                <div class="carta-color morado">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Morado</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Morado</h2>
+                            <ul>
+                                <li>Creatividad</li>
+                                <li>Imaginación</li>
+                                <li>Originalidad</li>
+                                <li>Intuición</li>
+                                <li>Individualidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROSA -->
+                <div class="carta-color rosa">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Rosa</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Rosa</h2>
+                            <ul>
+                                <li>Sensibilidad</li>
+                                <li>Cercanía</li>
+                                <li>Ternura</li>
+                                <li>Empatía</li>
+                                <li>Cuidado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLANCO -->
+                <div class="carta-color blanco">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Blanco</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Blanco</h2>
+                            <ul>
+                                <li>Claridad</li>
+                                <li>Sencillez</li>
+                                <li>Tranquilidad</li>
+                                <li>Orden</li>
+                                <li>Equilibrio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEGRO -->
+                <div class="carta-color negro">
+                    <div class="carta-color-interior">
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Negro</h2>
+                        </div>
+                        <div class="cara-color cara-color-detras">
+                            <h2>Negro</h2>
+                            <ul>
+                                <li>Independencia</li>
+                                <li>Seguridad</li>
+                                <li>Carácter</li>
+                                <li>Elegancia</li>
+                                <li>Misterio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- BURDEOS -->
+
+                <div class="carta-color burdeos">
+                    <div class="carta-color-interior">
+
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Burdeos</h2>
+                        </div>
+
+                        <div class="cara-color cara-color-detras">
+                            <h2>Burdeos</h2>
+                            <ul>
+                                <li>Elegancia</li>
+                                <li>Intensidad</li>
+                                <li>Seguridad</li>
+                                <li>Madurez</li>
+                                <li>Determinación</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- AZUL MARINO -->
+
+                <div class="carta-color azul-marino">
+                    <div class="carta-color-interior">
+
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Azul marino</h2>
+                        </div>
+
+                        <div class="cara-color cara-color-detras">
+                            <h2>Azul marino</h2>
+                            <ul>
+                                <li>Confianza</li>
+                                <li>Seriedad</li>
+                                <li>Estabilidad</li>
+                                <li>Profundidad</li>
+                                <li>Responsabilidad</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- TURQUESA -->
+
+                <div class="carta-color turquesa">
+                    <div class="carta-color-interior">
+
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Turquesa</h2>
+                        </div>
+
+                        <div class="cara-color cara-color-detras">
+                            <h2>Turquesa</h2>
+                            <ul>
+                                <li>Creatividad</li>
+                                <li>Originalidad</li>
+                                <li>Calma</li>
+                                <li>Espontaneidad</li>
+                                <li>Adaptabilidad</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- TERRACOTA -->
+
+                <div class="carta-color terracota">
+                    <div class="carta-color-interior">
+
+                        <div class="cara-color cara-color-delante">
+                            <div class="muestra-color"></div>
+                            <h2>Terracota</h2>
+                        </div>
+
+                        <div class="cara-color cara-color-detras">
+                            <h2>Terracota</h2>
+                            <ul>
+                                <li>Calidez</li>
+                                <li>Naturalidad</li>
+                                <li>Autenticidad</li>
+                                <li>Cercanía</li>
+                                <li>Seguridad</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- DESCRIPCIÓN DEL COLOR -->
+
+            <div class="descripcion-color">
+
+                <button type="button" class="btn-test btn-test-desc btn-abrir-test" id="abrirTestColor">
+                    <span class="huella">🐾</span>
+                    <span>¡Haz el test!</span>
+                </button>
+
+                <div class="descripcion-color-texto">
+                    <h3></h3>
+                    <p></p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="scripts/script.js"></script>
+    <script src="scripts/cuesitonario.js"></script>
+
+</body>
+
+</html>
